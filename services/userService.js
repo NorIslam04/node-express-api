@@ -1,9 +1,9 @@
 //Service : Contient la logique métier, comme les opérations sur la base de données.
+
 //Mongoose fournit des méthodes prédéfinies comme findById, findByIdAndUpdate, findByIdAndDelete
 //et save qui permettent de manipuler facilement les documents dans la base de données MongoDB.
 
-// services/userService.js
-
+const User = require("../models/userModel");//en peut utiliser les method de mongoose: findById, findByIdAndUpdate, findByIdAndDelete et save
 
 
 // en peut pas utiliser les methodes de mongoose car il doit const User = require('../models/userModel');
@@ -20,10 +20,10 @@ const fetachAllUsers = () => {
 
 
 // Créer un utilisateur
-const createUser = async (userData) => {
+const createUser = async (userData) => {//async -> retourne une promesse
   try {
     const newUser = new User(userData);
-    await newUser.save();
+    await newUser.save();//await car il attend que la sauvegarde soit terminée dans la base de données
     return newUser;
   } catch (err) {
     throw new Error('Erreur lors de la création de l\'utilisateur');
@@ -31,9 +31,9 @@ const createUser = async (userData) => {
 };
 
 // Récupérer tous les utilisateurs
-const getAllUsers = async () => {
+const getAllUsers = async () => {//async -> retourne une promesse
   try {
-    const users = await User.find();
+    const users = await User.find();//await car il attend que la recherche soit terminée dans la base de données
     return users;
   } catch (err) {
     throw new Error('Erreur lors de la récupération des utilisateurs');
