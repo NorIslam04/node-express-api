@@ -9,7 +9,7 @@ Ce projet est une application Node.js utilisant Express et MongoDB. Il permet de
 
 ## Installation
 
-1. **Cloner le repository**
+1. ### Cloner le repository
 
    Pour cloner le projet et Se déplacer dans le répertoire du projet, utilisez la commande suivante :
    ```bash
@@ -21,13 +21,13 @@ Ce projet est une application Node.js utilisant Express et MongoDB. Il permet de
    ```bash
    npm install
 
-4. ### **Configurer les variables d'environnement**
+4. ### Configurer les variables d'environnement
 
    Cree le fichier  .env et configurez les variables d'environnement, notamment la connexion à MongoDB.
    ```bash
    MONGO_URI=mongodb+srv://<votre-utilisateur>:<password>@cluster0.mongodb.net/<DB_name>?retryWrites=true&w=majority
 
-5. **Exécution**
+5. ### Exécution
    ```bash
    npm start
    ```
