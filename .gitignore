@@ -1,0 +1,32 @@
+# Node.js modules
+/node_modules/
+
+# Fichiers de logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Variables d'environnement
+.env
+
+# Cache de build
+/.cache/
+
+# Fichiers temporaires d'IDE
+.idea/
+.vscode/
+
+# Système de fichiers macOS
+.DS_Store
+
+# Système de fichiers Windows
+Thumbs.db
+
+# Répertoires de build ou distribution (si vous avez un processus de build)
+dist/
+build/
+
+# Fichiers de sécurité (par exemple, clés privées ou certificats)
+*.pem
+*.key
