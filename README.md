@@ -17,16 +17,17 @@ Ce projet est une application Node.js utilisant Express et MongoDB. Il permet de
    cd node-express-api
 
 2. **Installer les dépendances**
+   Lorsque vous exécutez la commande npm install, elle va installer toutes les dépendances définies dans votre fichier package.json et créer un dossier node_modules dans votre projet.     Ce dossier contiendra toutes les bibliothèques nécessaires au bon fonctionnement de votre application. 
    ```bash
    npm install
 
-3. **Configurer les variables d'environnement**
+4. **Configurer les variables d'environnement**
 
    Cree le fichier  .env et configurez les variables d'environnement, notamment la connexion à MongoDB.
    ```bash
    MONGO_URI=mongodb+srv://<votre-utilisateur>:<password>@cluster0.mongodb.net/<DB_name>?retryWrites=true&w=majority
 
-4. **Exécution**
+5. **Exécution**
    ```bash
    npm start
    ```
