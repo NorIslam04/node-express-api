@@ -14,6 +14,20 @@ const createUser = async (req, res) => {
   }
 };
 
+// Récupérer un utilisateur par ID
+const fetachAllUsers = (req, res) => {
+  try {
+      const users =userService.fetachAllUsers();
+      res.status(200).json(users);
+  } catch (err) {
+      res.status(500).json({ 
+          status: 'error',
+          message: 'Error fetching users',
+          error: err.message 
+      });
+  }
+};
+
 // Récupérer tous les utilisateurs
 const getAllUsers = async (req, res) => {
   try {
@@ -24,4 +38,4 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { createUser, getAllUsers };
+module.exports = { createUser, getAllUsers, fetachAllUsers };

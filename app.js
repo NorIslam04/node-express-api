@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const cors = require('cors');
+const port = process.env.PORT || 3000;
 
 // Charger les variables d'environnement à partir du fichier .env
 dotenv.config();
@@ -26,6 +27,8 @@ app.use('/api/users', userRoutes);
 app.use(errorMiddleware);
 
 // Démarrer le serveur
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+  console.log(`Access your app at: http://localhost:${port}`);
+  console.log(`Access your API at: http://localhost:${port}/api/users`);
 });

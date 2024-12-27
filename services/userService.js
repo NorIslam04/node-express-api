@@ -4,7 +4,20 @@
 
 // services/userService.js
 
-const User = require('../models/userModel');
+
+
+// en peut pas utiliser les methodes de mongoose car il doit const User = require('../models/userModel');
+const Users = [
+  { id: 1, name: 'John Doe', email: 'john@example.com' },
+  { id: 2, name: 'Jane Doe', email: 'jane@example.com' },
+  { id: 3, name: 'Alice', email: 'alice@gmail.com' }
+];
+
+// Service layer
+const fetachAllUsers = () => {
+  return Users;
+};
+
 
 // Créer un utilisateur
 const createUser = async (userData) => {
@@ -27,4 +40,4 @@ const getAllUsers = async () => {
   }
 };
 
-module.exports = { createUser, getAllUsers };
+module.exports = { createUser, getAllUsers, fetachAllUsers };
