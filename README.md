@@ -24,11 +24,12 @@ Ce projet est une application Node.js utilisant Express et MongoDB. Il permet de
 
    Cree le fichier  .env et configurez les variables d'environnement, notamment la connexion à MongoDB.
    ```bash
-   MONGO_URI=mongodb+srv://votre-utilisateur:votre-mot-de-passe@cluster0.mongodb.net/nom-de-votre-db?retryWrites=true&w=majority
+   MONGO_URI=mongodb+srv://<votre-utilisateur>:<password>@cluster0.mongodb.net/<DB_name>?retryWrites=true&w=majority
 
 4. **Exécution**
    ```bash
    npm start
+   ```
 
 
 
