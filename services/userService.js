@@ -7,11 +7,7 @@ const User = require("../models/userModel");//en peut utiliser les method de mon
 
 
 // en peut pas utiliser les methodes de mongoose car il doit const User = require('../models/userModel');
-const Users = [
-  { id: 1, name: 'John Doe', email: 'john@example.com' },
-  { id: 2, name: 'Jane Doe', email: 'jane@example.com' },
-  { id: 3, name: 'Alice', email: 'alice@gmail.com' }
-];
+const Users = [];
 
 // Service layer
 const fetachAllUsers = () => {
@@ -30,6 +26,34 @@ const createUser = async (userData) => {//async -> retourne une promesse
   }
 };
 
+
+// Ajouter un utilisateur
+const addUser = (userData) => {
+  // Validation des données
+  if (!userData.name || !userData.email) { // ajoutez les champs requis
+      throw new Error('Les champs nom et email sont obligatoires');
+  }
+
+  // Création d'un nouvel utilisateur avec toutes les données
+  const newUser = {
+      id: Users.length + 1,
+      name: userData.name,
+      email: userData.email,
+      date: new Date()
+  }
+
+  // Ajouter l'utilisateur à la liste
+  Users.push(newUser);
+
+  // Retourner l'objet utilisateur complet
+  return newUser;
+};
+
+
+
+
+
+
 // Récupérer tous les utilisateurs
 const getAllUsers = async () => {//async -> retourne une promesse
   try {
@@ -40,4 +64,4 @@ const getAllUsers = async () => {//async -> retourne une promesse
   }
 };
 
-module.exports = { createUser, getAllUsers, fetachAllUsers };
+module.exports = { createUser, getAllUsers, fetachAllUsers,addUser };//exporter les fonctions pour les utiliser dans le contrôleur

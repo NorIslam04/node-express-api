@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 // Utilisation des routes
-app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
 
 // Middleware pour gérer les erreurs
 app.use(errorMiddleware);
@@ -31,5 +31,5 @@ app.use(errorMiddleware);
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
   console.log(`Access your app at: http://localhost:${port}`);
-  console.log(`Access your API at: http://localhost:${port}/api/users`);
+  console.log(`Access your API at: http://localhost:${port}/users`);
 });
