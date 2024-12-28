@@ -19,7 +19,9 @@ const app = express();
 app.use(express.json());
 
 // Middleware CORS (si nécessaire)
-//app.use(cors());
+//pour le développement, vous pouvez utiliser le module `cors` pour autoriser les demandes de n'importe quelle origine
+//exemple: frontend à accéder à votre API
+app.use(cors());
 
 // Utilisation des routes
 app.use('', userRoutes);

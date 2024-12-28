@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .signup-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        .form-floating {
+            margin-bottom: 1rem;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="signup-container bg-white">
+            <h2 class="text-center mb-4">Créer un compte</h2>
+            <form id="signupForm" novalidate>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="name" placeholder="Votre nom" required>
+                    <label for="name">Nom complet</label>
+                    <div class="error-message" id="nameError"></div>
+                </div>
+                
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="email" placeholder="nom@exemple.com" required>
+                    <label for="email">Adresse email</label>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="password" placeholder="Mot de passe" required>
+                    <label for="password">Mot de passe</label>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmez le mot de passe" required>
+                    <label for="confirmPassword">Confirmer le mot de passe</label>
+                    <div class="error-message" id="confirmPasswordError"></div>
+                </div>
+                
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">S'inscrire</button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-3">
+                <p>Déjà inscrit ? <a href="#" class="text-decoration-none">Connectez-vous</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Réinitialiser les messages d'erreur
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            
+            // Récupérer les valeurs
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validation
+            let isValid = true;
+            
+            if (!name) {
+                document.getElementById('nameError').textContent = 'Le nom est requis';
+                isValid = false;
+            }
+            
+            if (!email) {
+                document.getElementById('emailError').textContent = 'L\'email est requis';
+                isValid = false;
+            } else if (!email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+                document.getElementById('emailError').textContent = 'Email invalide';
+                isValid = false;
+            }
+            
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'Le mot de passe est requis';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Le mot de passe doit contenir au moins 6 caractères';
+                isValid = false;
+            }
+            
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Les mots de passe ne correspondent pas';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                try {
+                    //ce shema il doivent être identiques avec le model de la base de données qui en a traiter dans userservice.js
+                    const userData = {
+                        name,
+                        email,
+                        password
+                    };
+                    
+                    const response = await axios.post('http://localhost:3000/createUser', userData);
+                    
+                    localStorage.setItem('userData', JSON.stringify({
+                        fullName: name,
+                        email: email
+                    }));
+                    window.location.href = 'profil.html';
+    
+                    // Réinitialiser le formulaire
+                    this.reset();
+                    
+                } catch (error) {
+
+                    alert('Erreur lors de l\'inscription. Veuillez réessayer.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

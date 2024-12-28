@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+
+        .profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+        }
+        .profile-header {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.340);
+        }
+        .profile-card {
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.340);
+        }
+        .edit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container profile-container">
+        <!-- En-tête du profil -->
+        <div class="profile-header text-center">
+            <div class="position-relative d-inline-block">
+                <img src="default.jpg" alt="Photo de profil" class="profile-avatar mb-3">
+                <button class="btn btn-light btn-sm rounded-circle edit-button" title="Modifier la photo">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+            <h2 class="mb-2" id="userName">John Doe</h2>
+            <p class="text-muted mb-3" id="userEmail">john.doe@example.com</p>
+            <button class="btn btn-primary" onclick="toggleEditMode()">
+                <i class="fas fa-edit me-2"></i>Modifier le profil
+            </button>
+        </div>
+
+        <!-- Informations personnelles -->
+        <div class="card profile-card mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Informations personnelles</h5>
+            </div>
+            <div class="card-body">
+                <form id="profileForm">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Nom complet</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Votre nom" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Votre email" disabled>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="Votre téléphone" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Date de naissance</label>
+                            <input type="date" class="form-control" id="birthDate" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Adresse</label>
+                        <textarea class="form-control" id="address" rows="2" placeholder="Votre adresse" disabled></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Bio</label>
+                        <textarea class="form-control" id="bio" rows="3" placeholder="Quelques mots à propos de vous" disabled></textarea>
+                    </div>
+                    <div class="text-end" id="formButtons" style="display: none;">
+                        <button type="button" class="btn btn-outline-secondary me-2" onclick="cancelEdit()">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card profile-card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-calendar-check text-primary mb-3" style="font-size: 24px;"></i>
+                        <h3 class="mb-2">125</h3>
+                        <p class="text-muted mb-0">Commandes</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card profile-card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-star text-warning mb-3" style="font-size: 24px;"></i>
+                        <h3 class="mb-2">4.8</h3>
+                        <p class="text-muted mb-0">Note moyenne</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card profile-card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-heart text-danger mb-3" style="font-size: 24px;"></i>
+                        <h3 class="mb-2">47</h3>
+                        <p class="text-muted mb-0">Favoris</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    <script>
+        const userdata = JSON.parse(localStorage.getItem('userData'));
+        // Simuler les données utilisateur
+        const userData = {
+            fullName: userdata.fullName,
+            email: userdata.email,
+            phone: '+33 6 12 34 56 78',
+            birthDate: '1990-01-01',
+            address: '123 Rue Example, 75001 Paris',
+            bio: 'Passionné par la technologie et l\'innovation.'
+        };
+
+        // Remplir le formulaire avec les données
+        function loadUserData() {
+            document.getElementById('fullName').value = userData.fullName;
+            document.getElementById('email').value = userData.email;
+            document.getElementById('phone').value = userData.phone;
+            document.getElementById('birthDate').value = userData.birthDate;
+            document.getElementById('address').value = userData.address;
+            document.getElementById('bio').value = userData.bio;
+            
+            // Mettre à jour l'en-tête
+            document.getElementById('userName').textContent = userData.fullName;
+            document.getElementById('userEmail').textContent = userData.email;
+        }
+
+        // Activer/désactiver le mode édition
+        function toggleEditMode() {
+            const inputs = document.querySelectorAll('#profileForm input, #profileForm textarea');
+            const buttons = document.getElementById('formButtons');
+            inputs.forEach(input => {
+                input.disabled = !input.disabled;
+            });
+            buttons.style.display = buttons.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Annuler les modifications
+        function cancelEdit() {
+            loadUserData();
+            toggleEditMode();
+        }
+
+        // Gérer la soumission du formulaire
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const updatedData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                birthDate: document.getElementById('birthDate').value,
+                address: document.getElementById('address').value,
+                bio: document.getElementById('bio').value
+            };
+
+            try {
+                // Simuler une requête API
+                // const response = await axios.put('http://localhost:3000/updateProfile', updatedData);
+                console.log('Profil mis à jour:', updatedData);
+                
+                // Mettre à jour les données locales
+                Object.assign(userData, updatedData);
+                
+                // Mettre à jour l'affichage
+                document.getElementById('userName').textContent = updatedData.fullName;
+                document.getElementById('userEmail').textContent = updatedData.email;
+                
+                // Désactiver le mode édition
+                toggleEditMode();
+                
+                alert('Profil mis à jour avec succès !');
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour:', error);
+                alert('Erreur lors de la mise à jour du profil');
+            }
+        });
+
+        // Charger les données au chargement de la page
+        loadUserData();
+    </script>
+</body>
+</html>
