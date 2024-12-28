@@ -18,8 +18,8 @@ const fetachAllUsers = () => {
 const createUser = async (userData) => {//async -> retourne une promesse
   try {
     const newUser = new User(userData);
-    await newUser.save();//await car il attend que la sauvegarde soit terminée dans la base de données
-    return newUser;
+    await pool.execute("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [newUser.name, newUser.email, newUser.password]);
+    return newUser;// il retourner avec un _id car en a utilise un usermodel de mongoose
   } catch (err) {
     throw new Error('Erreur lors de la création de l\'utilisateur');
   }
@@ -50,16 +50,13 @@ const addUser = (userData) => {
 
 async function getUsersDB() {
   try {
-      const [rows] = await pool.execute("SELECT * FROM admin");//await car il attend que la recherche soit terminée dans la base de données
+      const [rows] = await pool.execute("SELECT * FROM users");//await car il attend que la recherche soit terminée dans la base de données
       return rows;
   } catch (error) {
     throw error;
 
   }
 }
-
-
-
 
 
 // Récupérer tous les utilisateurs

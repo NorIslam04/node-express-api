@@ -19,10 +19,10 @@ const app = express();
 app.use(express.json());
 
 // Middleware CORS (si nécessaire)
-//app.use(cors());
+app.use(cors());
 
 // Utilisation des routes
-app.use('/users', userRoutes);
+app.use('', userRoutes);
 
 // Middleware pour gérer les erreurs
 app.use(errorMiddleware);
@@ -31,6 +31,6 @@ app.use(errorMiddleware);
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
   console.log(`Access your app at: http://localhost:${port}`);
-  console.log(`Access your API at: http://localhost:${port}/users`);
-  console.log(`Access your API at: http://localhost:${port}/users/usersDB`);
+  console.log(`Access your API at: http://localhost:${port}/createUser`);
+  console.log(`Access your API at: http://localhost:${port}/usersDB`);
 });
