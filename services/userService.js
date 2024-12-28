@@ -3,9 +3,8 @@
 //Mongoose fournit des méthodes prédéfinies comme findById, findByIdAndUpdate, findByIdAndDelete
 //et save qui permettent de manipuler facilement les documents dans la base de données MongoDB.
 
-const User = require("../models/userModel");//en peut utiliser les method de mongoose: findById, findByIdAndUpdate, findByIdAndDelete et save
-
-
+const User = require("../models/userModel");//en peut utiliser les method de mongoose: findById, findByIdAndUpdate, findByIdAndDelete et save//en peut utiliser les methodes de mysql car il doit const pool = require('../config/MySQL_DB');
+const pool = require('../config/MySQL_DB');
 // en peut pas utiliser les methodes de mongoose car il doit const User = require('../models/userModel');
 const Users = [];
 
@@ -49,6 +48,15 @@ const addUser = (userData) => {
   return newUser;
 };
 
+async function getUsersDB() {
+  try {
+      const [rows] = await pool.execute("SELECT * FROM admin");//await car il attend que la recherche soit terminée dans la base de données
+      return rows;
+  } catch (error) {
+    throw error;
+
+  }
+}
 
 
 
@@ -64,4 +72,4 @@ const getAllUsers = async () => {//async -> retourne une promesse
   }
 };
 
-module.exports = { createUser, getAllUsers, fetachAllUsers,addUser };//exporter les fonctions pour les utiliser dans le contrôleur
+module.exports = { createUser, getAllUsers, fetachAllUsers,addUser,getUsersDB };//exporter les fonctions pour les utiliser dans le contrôleur
