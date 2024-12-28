@@ -116,7 +116,7 @@
                     };
                     
                     const response = await axios.post('http://localhost:3000/createUser', userData);
-                    
+
                     localStorage.setItem('userData', JSON.stringify({
                         fullName: name,
                         email: email
@@ -127,8 +127,7 @@
                     this.reset();
                     
                 } catch (error) {
-
-                    alert('Erreur lors de l\'inscription. Veuillez réessayer.');
+                    alert('Erreur dans le API. Veuillez réessayer.');
                 }
             }
         });
