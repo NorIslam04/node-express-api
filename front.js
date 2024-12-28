@@ -15,10 +15,11 @@ const addUser = async (userData) => {
 };
 
 // Exemple d'utilisation
+//ce shema il doivent être identiques avec le model de la base de données qui en a traiter dans userservice.js
 const newUser = {
-  name: 'islam aoudia',
-  email: 'islam.aoudia@gmail.com',
-  password: '123456'
+  name: 'ooooo',
+  email: 'ooooppp.aoudia@gmail.com',
+  password: 'eofrop345356dfke'
 };
 
 // Appel de la fonction

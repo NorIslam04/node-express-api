@@ -8,6 +8,8 @@ const userService = require('../services/userService');
 // Créer un utilisateur
 const createUser = async (req, res) => {
   try {
+    //le req = recupirer dans le axios.post('http://localhost:3000/createUser', userData);
+    //req.body: recupirer les donnees utile dans le body de la requete
     const newUser = await userService.createUser(req.body);
     res.status(200).json(newUser);
   } catch (err) {

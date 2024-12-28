@@ -25,7 +25,6 @@ const createUser = async (userData) => {//async -> retourne une promesse
   }
 };
 
-
 // Ajouter un utilisateur
 const addUser = (userData) => {
   // Validation des données
@@ -54,7 +53,6 @@ async function getUsersDB() {
       return rows;
   } catch (error) {
     throw error;
-
   }
 }
 

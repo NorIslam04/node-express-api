@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 
 // Middleware CORS (si nécessaire)
-app.use(cors());
+//app.use(cors());
 
 // Utilisation des routes
 app.use('', userRoutes);
