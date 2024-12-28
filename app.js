@@ -31,6 +31,7 @@ app.use(errorMiddleware);
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
   console.log(`Access your app at: http://localhost:${port}`);
+  console.log(`Access your API at: http://localhost:${port}/addUser`);
   console.log(`Access your API at: http://localhost:${port}/createUser`);
   console.log(`Access your API at: http://localhost:${port}/usersDB`);
 });

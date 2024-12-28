@@ -21,7 +21,7 @@ const addUser=(req, res) => {//req en a pas besoin car on ne passe pas de donné
   try {
     //req.query: accepter les query parameters
     //req.body: accepter les données du corps de la requête (postman)
-    const newUser = userService.addUser();
+    const newUser = userService.addUser(req.query);
     res.status(200).json(newUser);
   } catch (err) {
     res.status(400).json({ message: err.message });
