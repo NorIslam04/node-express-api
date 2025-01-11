@@ -1,13 +1,15 @@
 // middlewares/authMiddleware.js
 
 const jwt = require('jsonwebtoken');
+const errorMiddleware = require('./errorMiddleware');
 
 const authMiddleware = (req, res, next) => {
+
   const token = req.headers.authorization?.split(' ')[1]; // Récupérer le token depuis l'en-tête Authorization
 
   if (!token) {//si le token n'est pas présent n'est existe pas
     //tkon n'existe pas
-    return res.status(403).json({ message: 'Accès interdit' });
+    return res.status(403).json({ message: 'Token manquant' });
   }
 
   try {
@@ -21,7 +23,8 @@ const authMiddleware = (req, res, next) => {
     //en le mettant dans req.user
     next();//appel le middleware suivant
   } catch (err) {
-    return res.status(401).json({ message: 'Token invalide' });
+    //token invalide
+    errorMiddleware(new Error('Token invalide'), req, res, next);
   }
 };
 
